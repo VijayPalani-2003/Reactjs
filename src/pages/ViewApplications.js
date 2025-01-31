@@ -6,11 +6,9 @@ import {
   getCourses,
   addSeats,
 } from "../app/slice";
-//import { useNavigate } from "react-router-dom";
 
 function ViewApplications() {
   const dispatch = useDispatch();
-  //const navigate = useNavigate();
   const applications = useSelector((state) => state.admissions.applications);
   const courses = useSelector((state) => state.admissions.courses);
 
