@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCourses, addSeats } from "../app/slice";
 
-
 const AddSeats = () => {
   const dispatch = useDispatch();
-
   const courses = useSelector((state) => state.admissions.courses);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [newSeatCount, setNewSeatCount] = useState("");
@@ -17,7 +15,8 @@ const AddSeats = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (selectedCourse && newSeatCount) {
-      dispatch(addSeats({ courseId: selectedCourse.id, updatedSeatCount: parseInt(newSeatCount) }));
+      const updatedSeatCount = selectedCourse.availableSeats + parseInt(newSeatCount);
+      dispatch(addSeats({ courseId: selectedCourse.id, updatedSeatCount }));
       alert("Seats updated successfully");
       setSelectedCourse(null);
       setNewSeatCount("");
@@ -37,7 +36,7 @@ const AddSeats = () => {
               setSelectedCourse(course);
             }}
           >
-            <option value="" disabled>
+            <option value="" disabled selected>
               Select Course
             </option>
             {courses.map((course) => (
@@ -49,6 +48,9 @@ const AddSeats = () => {
         </label>
         <label className="px-2" id="availableSeats">
           Available Seats: {selectedCourse ? selectedCourse.availableSeats : "--count--"}
+        </label>
+        <label className="px-2">
+          New Seats:
           <input
             type="number"
             className="form-control"
