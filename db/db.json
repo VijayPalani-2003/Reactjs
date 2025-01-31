@@ -1,0 +1,43 @@
+{
+  "admin": [
+    {
+      "name": "Admin",
+      "email": "admin@abz.com",
+      "password": "Admin@123"
+    }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "courseId": 1,
+      "courseName": "Civil Engineering",
+      "availableSeats": 2
+    },
+    {
+      "id": 2,
+      "courseId": 2,
+      "courseName": "Information Technology",
+      "availableSeats": 40
+    },
+    {
+      "id": 3,
+      "courseId": 3,
+      "courseName": "Mechanical Engineering",
+      "availableSeats": 53
+    },
+    {
+      "id": 4,
+      "courseId": 4,
+      "courseName": "Electrical Engineering",
+      "availableSeats": 35
+    },
+    {
+      "id": 5,
+      "courseId": 5,
+      "courseName": "Automobile Engineering",
+      "availableSeats": 24
+    }
+  ],
+  "applicants": [],
+  "applications": []
+}

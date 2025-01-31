@@ -1,0 +1,14 @@
+.App {
+  text-align: center;
+}
+
+.tab{
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  font-weight: bold;
+  color: white;
+  /* border-bottom-style: solid; */
+}
+.tab:hover{
+  color:rgb(46, 44, 44);
+}
