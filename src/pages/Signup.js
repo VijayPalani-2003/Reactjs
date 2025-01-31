@@ -28,7 +28,7 @@ const Signup = () => {
 
     try {
       const response = await axios.get(`/api/applicants?email=${email}`);
-      if (response.data) {
+      if (response.data.length > 0) {
         setErrorMessage("Email already registered");
         return;
       }
