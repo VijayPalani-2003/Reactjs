@@ -8,22 +8,33 @@ import axios from "axios";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const email = e.target.userEmail.value;
+    const password = e.target.userPassword.value;
+    const isAdmin = e.target.userType.checked;
 
-    /*
-    To get user credentials
-    Use url-  /api/applicants?email=${email} with GET method 
+    try {
+      const url = isAdmin ? `/api/admin?email=${email}` : `/api/applicants?email=${email}`;
+      const response = await axios.get(url);
+      const user = response.data;
 
-    To get admin credentials
-    Use url-  /api/admin?email=${email} with GET method 
-    */
+      if (user && user.password === password) {
+        dispatch(setLoggedUser(user));
+        navigate(isAdmin ? "/applications" : "/apply");
+      } else {
+        setErrorMessage("Password is incorrect");
+      }
+    } catch (error) {
+      setErrorMessage("Email not registered");
+    }
   };
 
   return (
     <div>
-      <form className="container mt-5">
+      <form className="container mt-5" onSubmit={handleSubmit}>
         <div className="form-header">
           <h3 id="loginHeader">Admin Login / Applicant Login</h3>
           <div className="float-right ">
@@ -56,7 +67,7 @@ const Login = () => {
           required
         />
         <p className="text-danger" id="errorMessage">
-          Display error message here
+          {errorMessage}
         </p>
         <button className="btn btn-primary" id="loginButton">
           Login
