@@ -44,10 +44,40 @@ export const getApplicationStatus = createAsyncThunk(
   }
 );
 
+// Register a new applicant
+export const registerApplicant = createAsyncThunk(
+  "registerApplicant",
+  async (applicantData) => {
+    const response = await axios.post("/api/applicants/register", applicantData);
+    return response.data;
+  }
+);
+
+// Login a user
+export const loginUser = createAsyncThunk(
+  "loginUser",
+  async (loginData) => {
+    const response = await axios.post("/api/users/login", loginData);
+    return response.data;
+  }
+);
+
+// Apply for a course
+export const applyCourse = createAsyncThunk(
+  "applyCourse",
+  async (applicationData) => {
+    const response = await axios.post("/api/applications/apply", applicationData);
+    return response.data;
+  }
+);
+
 const initialState = {
   courses: [],
   applications: [],
   loggedUser: null,  // Track logged-in user
+  registerStatus: null,
+  loginStatus: null,
+  applyStatus: null,
 };
 
 export const slice = createSlice({
@@ -90,10 +120,22 @@ export const slice = createSlice({
             : course
         );
         state.courses = updatedCourses;
+      })
+      .addCase(registerApplicant.fulfilled, (state, action) => {
+        state.registerStatus = action.payload;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loginStatus = action.payload;
+        if (action.payload.success) {
+          state.loggedUser = action.payload.user;
+        }
+      })
+      .addCase(applyCourse.fulfilled, (state, action) => {
+        state.applyStatus = action.payload;
       });
   },
 });
 
 const { actions, reducer } = slice;
-export const { setLoggedUser, setLoggedOutUser } = actions; // export setLoggedOutUser
+export const { setLoggedUser, setLoggedOutUser } = actions;
 export default reducer;
