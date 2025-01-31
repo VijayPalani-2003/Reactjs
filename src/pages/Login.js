@@ -52,7 +52,7 @@ const Login = () => {
 
         <input
           type="email"
-          name="email"
+          name="userEmail"
           id="userEmail"
           placeholder="your email"
           className="form-control mt-2"
@@ -60,7 +60,7 @@ const Login = () => {
         />
         <input
           type="password"
-          name="password"
+          name="userPassword"
           id="userPassword"
           placeholder="password"
           className="form-control mt-2"
